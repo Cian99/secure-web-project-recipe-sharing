@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+    <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+    <title>Search Result Portfolio</title>
+</head>
+
+<!-- PAGE STYLE -->
+<body class="visual">
+
+<div class="content">
+
+    <div class="upper"><br><br>
+        <h1>Search Result Portfolio: {{ username|e }}</h1><br>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    <br><br><br>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <div class="lower">
+
+        <!-- DISPLAY THE RESULTS OF THE SEARCH PORTFOLIO QUERY -->
+        <div>
+            {% if portfolio %}
+                <ul class="recipes">
+                    {% for recipe in portfolio %}
+                        <li>
+                            <!-- recipes in tuple, access them by index postition -->
+                            <h2>{{ recipe[2]|e }}</h2>
+                            <div class="recipeDetails">
+                                <p class="image">{% if recipe[5] is not none %} <img src="{{ recipe[5]|e }}"> {% endif %}</p>
+                                <p class="description">
+                                    <b>Recipe By:</b> {{ recipe[1]|e }}<br><br>
+                                    <b>Time:</b> {{ recipe[4]|e }}<br><br>
+                                    <b>Info:</b> {{ recipe[3]|e }}<br><br>
+                                    <b>Steps:</b> {{ recipe[6]|e }}
+                                </p>
+                            </div>
+                            <!-- Add button to add recipe to favourites -->
+                                <form action="/addToFavourites" method="post">
+                                    <input type="hidden" name="recipe_id" value="{{ recipe[0]|e }}">
+                                    <input type="submit" value="Add to Favourites">
+                                </form>
+                            <br><p> --- </p><br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No recipes found.</p>
+            {% endif %}
+        </div>
+
+        <br><br><br><br>
+        <hr><br><br>
+        <a href="/profile"><button>Back to Profile</button></a>
+        <br><br><br><br>
+
+    </div>
+
+</div>
+
+<br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+    <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+    <title>Search Portfolio</title>
+</head>
+
+<!-- LAYOUT THE PAGE AS DESIRED -->
+<body class="visual">
+
+        <div class="content">
+
+            <!-- PAGE TITLE -->
+            <div class="upper"><br><br>
+                <h1>Search for a User's Portfolio</h1><br>
+            </div>
+
+            <!-- DISPLAY FLASH MESSAGES IF ANY -->
+            <br><br><br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <div class="lower">
+                <h2>Please Search for a User</h2>
+
+                <!-- ASK FOR A USERNAME AND PASS TO MAIN.PY, REQUIRED ENTRY -->
+                <form action="/searchPortfolioAction"  method="post">
+                    <label for="user">Enter Username:  </label> <input type="text" placeholder="Enter Username" id="user" name="user" required><br><br>
+                    <input type="submit" value="Search">
+                </form>
+
+                <br><br><br><br>
+                <hr><br><br>
+                <a href="/profile"><button>Back to Profile</button></a>
+                <br><br><br><br>
+
+            </div>
+
+        </div>
+
+        <br><br><br><br>
+    </body>
+
+</html>

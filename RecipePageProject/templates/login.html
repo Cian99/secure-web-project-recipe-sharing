@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+        <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+        <title>Login</title>
+    </head>
+
+    <!-- LAYOUT THE PAGE AS DESIRED -->
+    <body class="visual">
+
+        <div class="content">
+
+            <!-- PAGE TITLE -->
+            <div class="upper"><br><br>
+                <h1>Recipe Realm</h1><br>
+            </div>
+
+            <!-- DISPLAY FLASH MESSAGES IF ANY -->
+            <br><br><br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <div class="lower">
+                <h2>Login</h2>
+                <!-- ASK FOR USER DETAILS AND PASS TO MAIN.PY TO COMPLETE AUTHENTICATION -->
+                <form action="/loginAction"  method="post">
+                    <!-- USE FORM VALIDATION FOR REQUIRED ENTRIES -->
+                    <label for="username">Username:  </label> <input type="text" placeholder="Enter Username" id="username" name="username" autocomplete="off" required><br><br>
+                    <label for="password">Password:  </label><input type="password" placeholder="Enter Password" id="password" name="password" required><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+                <br><br>
+                <!-- NEW USERS WILL WANT TO CREATE A NEW ACCOUNT -->
+                <a href="/signup">Create an account</a>
+                <br><br><br><br>
+                <br><br><br><br>
+                <br><br><br><br>
+            </div>
+
+        </div>
+
+        <br><br><br><br>
+    </body>
+
+</html>

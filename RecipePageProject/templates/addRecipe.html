@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+    <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+    <title>Add Recipe</title>
+</head>
+
+<!-- LAYOUT THE PAGE AS DESIRED -->
+<body class="visual">
+
+        <div class="content">
+
+            <div class="upper"><br><br>
+                <h1>Add a Recipe</h1><br>
+            </div>
+
+            <!-- DISPLAY FLASH MESSAGES IF ANY -->
+            <br><br><br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <div class="lower">
+                <!-- ASK FOR RECIPE DETAILS AND PASS TO MAIN.PY -->
+                <!-- USE FORM VALIDATION FOR REQUIRED ENTRIES -->
+                <h2>Please enter the Recipe information</h2>
+                <form action="/addRecipeAction"  method="post" enctype="multipart/form-data">
+                    <label for="recipeName">Recipe Name:  </label> <input type="text" placeholder="Enter Recipe Name" id="recipeName" name="recipeName" required><br><br>
+                    <label for="info">Info:  </label><textarea type="text" placeholder="Enter Recipe Info" id="info" name="info" required></textarea><br><br>
+                    <label for="time">Time:  </label><input type="text" placeholder="Enter Recipe Time" id="time" name="time" required><br><br>
+                    <!-- Add an input field for uploading images -->
+                    <!-- MAX FILE SIZE AND FILE TYPE ALLOWED SECURITY IMPLEMENTED FOR FILE UPLOAD -->
+                    <label for="image">Image:</label><input type="file" id="image" name="image" accept="image/*"><br><br>
+                    <label for="steps">Steps:</label><textarea placeholder="Enter Recipe Steps" id="steps" name="steps" required></textarea><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+
+                <br><br><br><br>
+                <hr><br><br>
+                <a href="/profile"><button>Back to Profile</button></a>
+                <br><br><br><br>
+
+            </div>
+
+        </div>
+
+        <br><br><br><br>
+    </body>
+
+</html>

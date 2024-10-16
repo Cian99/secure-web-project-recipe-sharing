@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <head>
+            <meta charset="UTF-8">
+            <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+            <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+            <title>Sign Up</title>
+    </head>
+
+    <!-- PAGE STYLE -->
+    <body class="visual">
+
+        <div class="content">
+
+            <!-- WEBSITE TITLE -->
+            <div class="upper"><br><br>
+                <h1>Recipe Realm</h1><br>
+            </div>
+
+            <!-- FLASH MESSAGES -->
+            <br><br><br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <!-- PAGE TITLE -->
+            <div class="lower">
+                <h2>Sign Up</h2>
+
+                <!-- GET USER TO ENTER THEIR DETAILS, SOME REQUIRED FIELDS -->
+                <form action="/signupAction"  method="post">
+                    <label for="username">Username:</label> <input type="text" placeholder="Enter Username" id="username" name="username" autocomplete="off" required><br><br>
+                    <label for="password">Password:</label> <input type="password" placeholder="Enter Password" id="password" name="password" autocomplete="off" required><br><br>
+                    <label for="email">Email:</label> <input type="text" placeholder="Enter Email" id="email" name="email" autocomplete="off" required><br><br>
+                    <label for="fname">First Name:</label> <input type="text" placeholder="Enter First Name" id="fname" name="fname" autocomplete="off"><br><br>
+                    <label for="lname">Last Name:</label> <input type="text" placeholder="Enter Last Name" id="lname" name="lname" autocomplete="off"><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+                <br><br>
+                <!-- LINK TO THE LOGIN PAGE -->
+                Already have an account? <a href="/login">Login</a>
+                <br><br><br><br>
+                <br><br><br><br>
+            </div>
+
+        </div>
+
+        <br><br><br><br>
+    </body>
+
+</html>

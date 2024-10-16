@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+    <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+    <title>User Recipes</title>
+</head>
+
+<!-- THIS PAGE WILL ALLOW A USER TO EASILY VIEW THE RECIPES THAT THEY HAVE ADDED THEMSELVES -->
+<!-- ONES OWN RECIPES -->
+
+<!-- PAGE STYLE -->
+<body class="visual">
+
+        <div class="content">
+
+            <!-- CURRENT USER'S NAME -->
+            <div class="upper"><br><br>
+                <h1>User: {{ username|e }}</h1><br>
+            </div>
+
+            <!-- FLASH MESSAGES -->
+            <br><br><br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <div class="lower">
+
+                <div>
+                    <h2>User Recipes</h2>
+                    <ul class="recipes">
+                        <!-- ITERATE THROUGH THE RECIPES ASSOCIATED WITH THE USER -->
+                        {% if userRecipes %}
+                            {% for recipe in userRecipes %}
+                                <h3>{{ recipe.name|e }}</h3>
+                                <div class="recipeDetails">
+                                    <p class="image">{% if recipe.img_path is not none %} <img src="{{ recipe.img_path|e }}"> {% endif %}</p>
+                                    <p class="description">
+                                        <b>Recipe By:</b> {{ username|e }}<br><br>
+                                        <b>Time:</b> {{ recipe.time|e }}<br><br>
+                                        <b>Info:</b> {{ recipe.info|e }}<br><br>
+                                        <b>Steps:</b> {{ recipe.steps|e }}
+                                    </p>
+                                </div>
+                                <!-- Add button to delete recipe from database -->
+                                <!-- USERS SHOULD HAVE THIS OPTION FOR THEIR OWN RECIPES ONLY -->
+                                <form action="/deleteRecipe" method="post">
+                                    <input type="hidden" name="recipe_id" value="{{ recipe.id|e }}">
+                                    <button type="submit">Delete Recipe</button>
+                                </form>
+                                <br><p> ----- </p><br>
+                            {% endfor %}
+                        {% else %}
+                            <p>No favourite recipes found!</p>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <br><br><br><br>
+                <hr><br><br>
+                <a href="/profile"><button>Back to Profile</button></a>
+                <br><br><br><br>
+
+            </div>
+
+        </div>
+
+        <br><br><br><br>
+    </body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='StyleSheet'>
+    <link rel="stylesheet" type="text/css" href="static/CSS/StyleSheet.css">
+    <title>Profile</title>
+</head>
+
+<!-- LAYOUT THE PAGE AS DESIRED -->
+<body class="visual">
+
+    <div class="content">
+
+        <!--
+        ENCODING - SECURITY FEATURE FOR DISPLAYING DATA FROM DATABASE
+        ESCAPE SPECIAL CHARACTERS
+        -->
+        <div class="upper"><br><br>
+            <h1>User: {{ username|e }}</h1><br>
+        </div>
+
+        <!-- DISPLAY FLASH MESSAGES IF ANY -->
+        <br><br><br>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <!--
+        ENCODING - SECURITY FEATURE FOR DISPLAYING DATA FROM DATABASE
+        ESCAPE SPECIAL CHARACTERS
+        -->
+        <div class="lower">
+            <table class="info">
+                <tr>
+                    <th>First Name</th>
+                    <td>{{ fname|e }}</td>
+                </tr>
+                <tr>
+                    <th>Family Name</th>
+                    <td>{{ lname|e }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ email|e }}</td>
+                </tr>
+            </table>
+            <br>
+            <!-- VIEW RECIPES CREATED BY THE CURRENT USER -->
+            <a href="/userRecipes"><button>View Recipe Contributions</button></a>
+            <br><br>
+
+            <div>
+                <!-- RECIPES THE CURRENT USER HAS ADDED TO FAVOURITES -->
+                <h2>Favourite Recipes</h2>
+                <ul class="recipes">
+                    <!-- ITERATE THROUGH THEM -->
+                    {% if favourite_recipes %}
+                        {% for recipe in favourite_recipes %}
+                            <!-- recipes in tuple, access them by index postition -->
+                            <!-- encoding used -->
+                            <h3>{{ recipe[2]|e }}</h3>
+                            <div class="recipeDetails">
+                                <p class="image">{% if recipe[5] is not none %} <img src="{{ recipe[5]|e }}"> {% endif %}</p>
+                                <p class="description">
+                                    <b>Recipe By:</b> {{ recipe[1]|e }}<br><br>
+                                    <b>Time:</b> {{ recipe[4]|e }}<br><br>
+                                    <b>Info:</b> {{ recipe[3]|e }}<br><br>
+                                    <b>Steps:</b> {{ recipe[6]|e }}
+                                </p>
+                            </div>
+                            <!-- Add button to remove recipe from favourites -->
+                            <form action="/removeFromFavourites" method="post">
+                                <input type="hidden" name="recipe_id" value="{{ recipe[0]|e }}">
+                                <button type="submit">Remove from Favourites</button>
+                            </form>
+                            <br><p> ----- </p><br>
+                        {% endfor %}
+                    {% else %}
+                        <p>No favourite recipes found!</p>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <br><br><br><br>
+
+            <!-- BUTTONS TO ADD RECIPE, SEARCH RECIPE, AND SEARCH RECIPES BY USER -->
+            <a href="/addRecipe"><button>Add a Recipe</button></a><span>&nbsp &nbsp &nbsp</span><a href="/searchRecipe"><button>Search for a Recipe</button></a>
+
+            <br><br><br><br>
+            <hr><br><br>
+            <h3>Search for User Portfolio</h3>
+            <a href="/searchPortfolio"><button>Search for a User</button></a>
+
+            <br><br><br><br>
+            <hr><br><br>
+            <a href="/logout"><button>Logout</button></a>
+            <br><br><br><br>
+        </div>
+
+    </div>
+
+    <br><br><br><br>
+</body>
+</html>
